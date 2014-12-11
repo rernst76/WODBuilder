@@ -47,45 +47,76 @@
 				</div>
 				<div class="col-md-6">
 					<div class="stock">
-						<h1>Toolbox</h1>
-						<div class="xitem" draggable="true">
-							<div class="dropdown">
-								<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" >
-									<span class="selection">AMRAP</span><span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu" role="menu">
-									<li><a href="#" data-value="AMRAP (Rounds)">AMRAP (Rounds)</a></li>
-									<li><a href="#" data-value="AMRAP (Reps)">AMRAP (Reps)</a></li>
-									<li><a href="#" data-value="EMOM">EMOM</a></li>
-								</ul>
+						<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+							<div class="panel panel-default">
+								<div class="panel-heading" role="tab" id="headingOne">
+									<h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Time Based Workout Structure
+        </a>
+      </h4>
+								</div>
+								<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+									<div class="panel-body">
+										<div class="xitem" draggable="true">
+											<h4>AMRAP (Rounds)</h4>
+											<div class="well itemDragArea">
+												<p>Drop items here</p>
+											</div>
+										</div>
+										<div class="xitem" draggable="true">
+											<h4>AMRAP (Reps)</h4>
+											<div class="well itemDragArea">
+												<p>Drop items here</p>
+											</div>
+										</div>
+										<div class="xitem" draggable="true">
+											<h4>EMOM</h4>
+											<div class="well itemDragArea">
+												<p>Drop items here</p>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
-							<div class="well itemDragArea">
-								<p>Drop items here</p>
+							<div class="panel panel-default">
+								<div class="panel-heading" role="tab" id="headingTwo">
+									<h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Rep/Round Based Workout Structure
+        </a>
+      </h4>
+								</div>
+								<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+									<div class="panel-body">
+										Put Stuff Here!
+									</div>
+								</div>
 							</div>
-						</div>
-						<div class="xitem" draggable="true">
-							<div class="dropdown">
-								<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" >
-									<span class="selection">AMRAP</span><span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu" role="menu">
-									<li><a href="#" data-value="AMRAP (Rounds)">AMRAP (Rounds)</a></li>
-									<li><a href="#" data-value="AMRAP (Reps)">AMRAP (Reps)</a></li>
-									<li><a href="#" data-value="EMOM">EMOM</a></li>
-								</ul>
-							</div>
-							<div class="well itemDragArea">
-								<p>Drop items here</p>
+							<div class="panel panel-default">
+								<div class="panel-heading" role="tab" id="headingThree">
+									<h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          Movements
+        </a>
+      </h4>
+								</div>
+								<div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+									<div class="panel-body">
+										Put Stuff Here!
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+
 		</div>
 	</div>
 	<!-- /.container -->
 
-	
+
 	<!-- Bootstrap core JavaScript
     ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
@@ -94,11 +125,11 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 	<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
-	
+
 	<!-- Custom JavaScript
     ================================================== -->
 	<script src="js/custom.js"></script>
-	
+
 </body>
 
 </html>
