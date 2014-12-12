@@ -54,16 +54,13 @@ body {
     text-align: left;
     padding: 10px;
     margin-bottom: 2px;
-    z-index: 2;
+    
 }
 
 .itemDragArea.dragover {
     border-style: dashed;
     border-color: black;
-}
-
-.itemDragAreaText {
-    z-index: 1;
+    margin-top: ;
 }
 
 .panel-group {
