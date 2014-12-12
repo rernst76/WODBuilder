@@ -15,7 +15,7 @@ function handleDragStart(e) {
 }
 
 // Add listeners for dragstart
-var items = document.querySelectorAll(".xitem");
+var items = document.querySelectorAll(".xitem, .mitem");
 [].forEach.call(items, function(item) {
    item.addEventListener('dragstart', handleDragStart, false); 
 });
