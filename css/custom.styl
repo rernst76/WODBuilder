@@ -1,0 +1,75 @@
+vendor(prop, args)
+  -webkit-{prop} args
+  -moz-{prop} args
+  -ms-{prop} args
+  -o-{prop} args
+  {prop} args
+
+transition()
+  vendor('transition', arguments)
+	
+body
+  padding-top 50px
+  
+html
+  overflow-y scroll
+
+[draggable]
+  -webkit-user-select none  /* Chrome all / Safari all */
+  -moz-user-select none     /* Firefox all */
+  -ms-user-select none 
+
+.dropdown
+    padding-bottom 6px
+
+.dropdown .btn
+    width 100%
+
+.stock, .entry 
+    border 2px solid black
+    border-radius 10px
+    margin-top 25px
+    padding 5px
+
+
+.stock h1, .entry h1
+    text-align center
+    margin-top 3px
+
+
+.xitem 
+    display inline-block
+    padding 8px
+    margin 2px
+    border 2px solid black
+    border-radius 8px
+    cursor move
+
+
+.xitem h4 
+    text-align center
+    margin 0px 3px 3px 3px
+
+
+.mitem 
+    cursor move
+
+
+.item-title 
+    margin-top 4px
+    
+.itemDragArea 
+    text-align left
+    padding 10px
+    margin-bottom 2px
+    transition padding 0.2s ease-in-out
+
+
+.itemDragArea.dragover 
+    border-style dashed
+    border-color black
+    padding-top 20px
+    padding-bottom 20px
+
+.panel-group 
+    margin 0px
