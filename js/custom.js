@@ -6,3 +6,18 @@ $('#movementFilter').keyup(function() {
         return !re.test($(this).text());
     }).hide();
 });
+
+
+function handleDragStart(e) {
+    e.dataTransfer.effectAllowed='copy';
+    this.style.opacity = '0.4';
+    e.dataTransfer.setData("text/html", e.target);
+}
+
+// Add listeners for dragstart
+var items = document.querySelectorAll(".xitem");
+[].forEach.call(items, function(item) {
+   item.addEventListener('dragstart', handleDragStart, false); 
+});
+
+// 

@@ -50,6 +50,9 @@ body {
     margin-bottom: 2px;
 }
 
+.itemDragArea.over {
+    border: 10px dashed #000;
+}
 .panel-group {
     margin: 0px;
 }
