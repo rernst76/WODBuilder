@@ -1,68 +1,66 @@
 body {
   padding-top: 50px;
 }
-
-[dragable] {
-  -webkit-user-select: none;  /* Chrome all / Safari all */
-  -moz-user-select: none;     /* Firefox all */
-  -ms-user-select: none; 
+html {
+  overflow-y: scroll;
 }
-
+[draggable] {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
 .dropdown {
-    padding-bottom: 6px;
+  padding-bottom: 6px;
 }
-
 .dropdown .btn {
-    width: 100%;
+  width: 100%;
 }
-
-.stock, .entry {
-    border: 2px solid black;
-    border-radius: 10px;
-    margin-top: 25px;
-    padding: 5px;
+.stock,
+.entry {
+  border: 2px solid #000;
+  border-radius: 10px;
+  margin-top: 25px;
+  padding: 5px;
 }
-
- .stock h1, .entry h1 {
-    text-align: center;
-    margin-top: 3px;
+.stock h1,
+.entry h1 {
+  text-align: center;
+  margin-top: 3px;
 }
-
 .xitem {
-    display: inline-block;
-    padding: 8px;
-    margin: 2px;
-    border: 2px solid black;
-    border-radius: 8px;
-    cursor: move;
+  display: inline-block;
+  padding: 8px;
+  margin: 2px;
+  border: 2px solid #000;
+  border-radius: 8px;
+  cursor: move;
 }
-
 .xitem h4 {
-    text-align: center;
-    margin: 0px 3px 3px 3px;
+  text-align: center;
+  margin: 0px 3px 3px 3px;
 }
-
 .mitem {
-    cursor: move;
+  cursor: move;
 }
-
 .item-title {
-    margin-top: 4px;
+  margin-top: 4px;
 }
-
 .itemDragArea {
-    text-align: left;
-    padding: 10px;
-    margin-bottom: 2px;
-    
+  text-align: left;
+  padding: 10px;
+  margin-bottom: 2px;
+  -webkit-transition: padding 0.2s ease-in-out;
+  -moz-transition: padding 0.2s ease-in-out;
+  -ms-transition: padding 0.2s ease-in-out;
+  -o-transition: padding 0.2s ease-in-out;
+  transition: padding 0.2s ease-in-out;
 }
-
 .itemDragArea.dragover {
-    border-style: dashed;
-    border-color: black;
-    margin-top: ;
+  border-style: dashed;
+  border-color: #000;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
-
 .panel-group {
-    margin: 0px;
+  margin: 0px;
 }

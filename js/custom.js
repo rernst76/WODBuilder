@@ -34,10 +34,24 @@ function handleDragLeave(e) {
     this.classList.remove("dragover");
 }
 
+// Function to handle drag drop event
+function handleDrop(e) {
+    this.classList.remove("dragover");
+    e.target.querySelector('.itemDragAreaText')
+      .style.visibility = "visible";
+    return false;
+}
+
+// Function to handle drag end
+function handleDragEnd(e) {
+    this.style.opacity = '1';
+}
+
 // Add listeners to draggable items
 var items = document.querySelectorAll(".xitem, .mitem");
 [].forEach.call(items, function(item) {
     item.addEventListener('dragstart', handleDragStart, false);
+    item.addEventListener('dragend', handleDragEnd, false);
 });
 
 // Add listeners to drop areas
@@ -46,4 +60,5 @@ items = document.querySelectorAll(".itemDragArea");
     item.addEventListener('dragenter', handleDragEnter, false);
     item.addEventListener('dragover', handleDragOver, false);
     item.addEventListener('dragleave', handleDragLeave, false);
+    item.addEventListener('drop', handleDrop, false);
 });
