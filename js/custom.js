@@ -17,7 +17,8 @@ function handleDragStart(e) {
 // Function to handle dragenter
 function handleDragEnter(e) {
     var element = e.target.querySelector('.itemDragAreaText');
-    element.style.visibility = "hidden";
+    if (element.parentNode === e.target)
+        element.style.visibility = "hidden";
       
     e.target.classList.add("dragover");
     
@@ -32,7 +33,8 @@ function handleDragOver(e) {
 // Function to handle dragleave
 function handleDragLeave(e) {
     var element = e.target.querySelector('.itemDragAreaText');
-    element.style.visibility = "visible";
+    if (element.parentNode === e.target)
+        element.style.visibility = "visible";
         
     e.target.classList.remove("dragover");
     
@@ -49,11 +51,10 @@ function handleDrop(e) {
     var drop_text = e.target.querySelector('.itemDragAreaText');
     if (drop_text.parentNode === e.target){
         e.target.replaceChild(new_node, drop_text);
-        new_node.outerHTML = e.dataTransfer.getData('text/html');
     } else {
         e.target.appendChild(new_node);
-        new_node.outerHTML = e.dataTransfer.getData('text/html');
     }
+    new_node.outerHTML = e.dataTransfer.getData('text/html');
     
     return false;
 }
