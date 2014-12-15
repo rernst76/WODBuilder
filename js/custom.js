@@ -45,18 +45,23 @@ function handleDrop(e) {
     // Remove drag over styling
     e.target.classList.remove("dragover");
     
-    // Create new node to be dropped
+    // Create new node to be dropped, modify styles
     var new_node = document.createElement('div');
+    new_node.innerHTML = e.dataTransfer.getData('text/html');
+    new_node.classList.add("panel", "panel-default", "dropped");
+    
+    var new_node_inner = new_node.firstChild;
+    new_node_inner.classList.add("panel-body");
+    new_node_inner.classList.remove("xitem");
     
     var drop_text = e.target.querySelector('.itemDragAreaText');
+    // If there is drop text, replace it with the dragged node
     if (drop_text.parentNode === e.target){
         e.target.replaceChild(new_node, drop_text);
-    } else {
+    } else { // Else make a new node and 
         e.target.appendChild(new_node);
     }
-    new_node.outerHTML = e.dataTransfer.getData('text/html');
     
-    return false;
 }
 
 // Function to handle drag end
@@ -72,10 +77,21 @@ var items = document.querySelectorAll(".xitem, .mitem");
 });
 
 // Add listeners to drop areas
-items = document.querySelectorAll(".itemDragArea");
+items = document.querySelectorAll(".entry .itemDragArea");
 [].forEach.call(items, function(item) {
     item.addEventListener('dragenter', handleDragEnter, false);
     item.addEventListener('dragover', handleDragOver, false);
     item.addEventListener('dragleave', handleDragLeave, false);
     item.addEventListener('drop', handleDrop, false);
 });
+
+
+// Adds drop zone at first and last element position inside of node
+function insertDropZones(node) {
+    
+}
+
+// Removes drop zone at first and last element position inside of node
+function removeDropZones(node) {
+    
+}
