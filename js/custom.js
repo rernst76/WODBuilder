@@ -9,16 +9,18 @@ $('#movementFilter').keyup(function() {
 
 // Function to handle dragstart event
 function handleDragStart(e) {
-    e.dataTransfer.effectAllowed = 'copy';
+    e.dataTransfer.effectAllowed = 'copyMove';
+    e.dataTransfer.setData("text/html", e.target.outerHTML);
     this.style.opacity = '0.4';
-    e.dataTransfer.setData("text/html", e.target);
 }
 
 // Function to handle dragenter
 function handleDragEnter(e) {
-    e.target.querySelector('.itemDragAreaText')
-      .style.visibility = "hidden";
-    this.classList.add("dragover");
+    var element = e.target.querySelector('.itemDragAreaText');
+    element.style.visibility = "hidden";
+      
+    e.target.classList.add("dragover");
+    
 }
 
 // Function ot handle dragover
@@ -29,16 +31,30 @@ function handleDragOver(e) {
 
 // Function to handle dragleave
 function handleDragLeave(e) {
-    e.target.querySelector('.itemDragAreaText')
-      .style.visibility = "visible";
-    this.classList.remove("dragover");
+    var element = e.target.querySelector('.itemDragAreaText');
+    element.style.visibility = "visible";
+        
+    e.target.classList.remove("dragover");
+    
 }
 
 // Function to handle drag drop event
 function handleDrop(e) {
-    this.classList.remove("dragover");
-    e.target.querySelector('.itemDragAreaText')
-      .style.visibility = "visible";
+    // Remove drag over styling
+    e.target.classList.remove("dragover");
+    
+    // Create new node to be dropped
+    var new_node = document.createElement('div');
+    
+    var drop_text = e.target.querySelector('.itemDragAreaText');
+    if (drop_text.parentNode === e.target){
+        e.target.replaceChild(new_node, drop_text);
+        new_node.outerHTML = e.dataTransfer.getData('text/html');
+    } else {
+        e.target.appendChild(new_node);
+        new_node.outerHTML = e.dataTransfer.getData('text/html');
+    }
+    
     return false;
 }
 
