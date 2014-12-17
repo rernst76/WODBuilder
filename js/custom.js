@@ -17,13 +17,11 @@ var dnd = {
 
 // Function to handle dragstart event
 function handleDragStart(e) {
-    console.log("DragStart:")
-    console.log(e.target);
     
     //Set action based on stockitem class
     dnd.action  = (e.target.classList.contains("stockitem")) ? "copy" : "move";
     
-    e.dataTransfer.effectAllowed = 'all';
+    e.originalEvent.dataTransfer.effectAllowed = 'all';
     dnd.data = e.target.outerHTML;
     
     // Set dragElement
@@ -36,16 +34,13 @@ function handleDragEnter(e) {
     e.preventDefault();
     
     // Add dragover class to e.target
-    e.target.classList.add("dragover");
+    $(this).addClass("dragover");
     
     // Check if entered element contains drag area text
-    var element = e.target.querySelector('.itemDragAreaText');
-    if (!element) {return false} // Return if element is null
-    
-    // Check if drag area text is in e.target's node, hide it if so
-    if (element.parentNode === e.target)
-        element.style.visibility = "hidden";
-    
+    var dragAreaText = $(this).children(".itemDragAreaText");
+    if (dragAreaText) {
+        dragAreaText.hide();
+    }
 }
 
 // Function to handle dragover
