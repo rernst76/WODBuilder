@@ -64,27 +64,40 @@ function handleDragLeave(e) {
 function handleDrop(e) {
     e.preventDefault();
     
+    // Don't let this bubble, or we will have problems with nesting
+    e.stopPropagation();
+    
     // Remove drag over styling
-    e.target.classList.remove("dragover");
+    $(this).removeClass("dragover");
     
     // Create new node to be dropped, modify styles
     var new_node = document.createElement('div');
     new_node.innerHTML = dnd.data;
-    new_node.classList.add("panel", "panel-default", "dropped");
+    $(new_node).addClass("panel panel-default dropped");
     
     if (dnd.action === 'copy') {
-        
+        // Modify classes for inner node, add listeners for dragstart and dragend
         var new_node_inner = new_node.firstChild;
-        new_node_inner.classList.add("panel-body");
-        new_node_inner.classList.remove("xitem", "stockitem");
-        new_node_inner.addEventListener('dragend', handleDragEnd, false);
-        new_node_inner.addEventListener('dragstart', handleDragStart, false);
+        $(new_node_inner).addClass("panel-body")
+          .removeClass("xitem stockitem")
+          .on({
+              'dragstart': handleDragStart,
+              'dragend': handleDragEnd
+        });
+          
+        // Add listeners for drop areas
+        $(new_node_inner).children(".itemDragArea").on({
+            'dragenter': handleDragEnter,
+            'dragover': handleDragOver,
+            'dragleave': handleDragLeave,
+            'drop': handleDrop
+        });
         
-        var drop_text = e.target.querySelector('.itemDragAreaText');
-        // If there is drop text, replace it with the dragged node
-        if (drop_text.parentNode === e.target){
-            e.target.replaceChild(new_node, drop_text);
-        } else { // Else make a new node and 
+        // Check if left element contains drag area text, replace it if so
+        var dropText = $(this).children(".itemDragAreaText");
+        if (dropText.length) { // Check jquery object length
+            e.target.replaceChild(new_node, dropText[0]);
+        } else {
             e.target.appendChild(new_node);
         }
         
