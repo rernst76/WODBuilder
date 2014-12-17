@@ -63,6 +63,7 @@ html {
 }
 .dropped {
   margin-bottom: 0px;
+  cursor: move;
 }
 .panel-group {
   margin: 0px;
