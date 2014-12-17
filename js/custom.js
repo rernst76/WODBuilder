@@ -98,7 +98,8 @@ function handleDrop(e) {
     if (dnd.action === "move") {
         // Pre-emptively replace drag-text if needed
         console.log($(dnd.dragElement).parent().parent()[0]);
-        if($(dnd.dragElement).parent().children().length <= 1 && !$(dnd.dragElement).parent().parent().hasClass('permArea')) {
+        var isPermArea = $(dnd.dragElement).parent().parent().hasClass('permArea');
+        if($(dnd.dragElement).parent().children().length <= 1 && !isPermArea) {
             $(dnd.dragElement).parent().parent().append('<p class="itemDragAreaText">Drop items here</p>');
         }
         
