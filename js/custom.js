@@ -32,6 +32,7 @@ function handleDragStart(e) {
 // Function to handle dragenter
 function handleDragEnter(e) {
     e.preventDefault();
+    e.stopPropagation();
     
     // Add dragover class to e.target
     $(this).addClass("dragover");
@@ -46,10 +47,12 @@ function handleDragEnter(e) {
 // Function to handle dragover
 function handleDragOver(e) {
     e.preventDefault(); // Necessary to allow drop
+    e.stopPropagation();
 }
 
 // Function to handle dragleave
 function handleDragLeave(e) {
+    e.stopPropagation();
     // Remove dragover class from e.target
     $(this).removeClass("dragover");
     
@@ -75,39 +78,45 @@ function handleDrop(e) {
     new_node.innerHTML = dnd.data;
     $(new_node).addClass("panel panel-default dropped");
     
-    if (dnd.action === 'copy') {
-        // Modify classes for inner node, add listeners for dragstart and dragend
-        var new_node_inner = new_node.firstChild;
-        $(new_node_inner).addClass("panel-body")
-          .removeClass("xitem stockitem")
-          .on({
-              'dragstart': handleDragStart,
-              'dragend': handleDragEnd
-        });
-          
-        // Add listeners for drop areas
-        $(new_node_inner).children(".itemDragArea").on({
-            'dragenter': handleDragEnter,
-            'dragover': handleDragOver,
-            'dragleave': handleDragLeave,
-            'drop': handleDrop
-        });
-        
-        // Check if left element contains drag area text, replace it if so
-        var dropText = $(this).children(".itemDragAreaText");
-        if (dropText.length) { // Check jquery object length
-            e.target.replaceChild(new_node, dropText[0]);
-        } else {
-            e.target.appendChild(new_node);
+    // Modify classes for inner node, add listeners for dragstart and dragend
+    var new_node_inner = new_node.firstChild;
+    $(new_node_inner).addClass("panel-body")
+      .removeClass("xitem stockitem")
+      .on({
+          'dragstart': handleDragStart,
+          'dragend': handleDragEnd
+    });
+      
+    // Add listeners for drop areas
+    $(new_node_inner).children(".itemDragArea").on({
+        'dragenter': handleDragEnter,
+        'dragover': handleDragOver,
+        'dragleave': handleDragLeave,
+        'drop': handleDrop
+    });
+    
+    if (dnd.action === "move") {
+        // Pre-emptively replace drag-text if needed
+        console.log($(dnd.dragElement).parent()[0]);
+        if($(dnd.dragElement).parent().children().length <= 1) {
+            $(dnd.dragElement).parent().parent().append('<p class="itemDragAreaText">Drop items here</p>');
         }
         
-    } else if (dnd.action === "move") {
-        dnd.dragElement.parentNode.parentNode.removeChild(dnd.dragElement.parentNode);
-        console.log(dnd.dragElement.parentNode.parentNode);
-        dnd.dropElement = new_node
-        e.target.appendChild(dnd.dropElement);
+        // Remove dragged element
+        $(dnd.dragElement).parent().remove();
+        
     }
     
+    // Check if left element contains drag area text, replace it if so
+    var dropText = $(this).children(".itemDragAreaText");
+    if (dropText.length) { // Check jquery object length
+        e.target.replaceChild(new_node, dropText[0]);
+    } else {
+        e.target.appendChild(new_node);
+    }
+    
+    // Set drop element
+    dnd.dropElement = new_node;
 }
 
 // Function to handle drag end
