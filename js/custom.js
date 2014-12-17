@@ -36,10 +36,10 @@ function handleDragEnter(e) {
     // Add dragover class to e.target
     $(this).addClass("dragover");
     
-    // Check if entered element contains drag area text
+    // Check if entered element contains drag area text, hide it
     var dragAreaText = $(this).children(".itemDragAreaText");
     if (dragAreaText) {
-        dragAreaText.hide();
+        dragAreaText.css("visibility", "hidden");
     }
 }
 
@@ -51,16 +51,13 @@ function handleDragOver(e) {
 // Function to handle dragleave
 function handleDragLeave(e) {
     // Remove dragover class from e.target
-    e.target.classList.remove("dragover");
+    $(this).removeClass("dragover");
     
-    // Check if entered element contains drag area text
-    var element = e.target.querySelector('.itemDragAreaText');
-    if (!element) {return false} // Return if element is null
-    
-    // Check if drag area text is in e.target's node, hide it if so
-    if (element.parentNode === e.target)
-        element.style.visibility = "visible";
-    
+    // Check if left element contains drag area text, show it
+    var dragAreaText = $(this).children(".itemDragAreaText");
+    if (dragAreaText) {
+        dragAreaText.css("visibility", "visible");
+    }
 }
 
 // Function to handle drop event
