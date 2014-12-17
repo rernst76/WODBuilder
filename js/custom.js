@@ -10,9 +10,9 @@ $('#movementFilter').keyup(function() {
 // Global var to avoid shitty DnD browser support
 var dnd = {
     action: "",
-    dragElement: document.createDocumentFragment(),
+    dragElement: document.createDocumentFragment(), // Item being dragged
     data: "",
-    dropElement: document.createDocumentFragment()
+    dropElement: document.createDocumentFragment()  // Item being created using move/copy
 };
 
 // Function to handle dragstart event
@@ -24,43 +24,51 @@ function handleDragStart(e) {
     dnd.action  = (e.target.classList.contains("stockitem")) ? "copy" : "move";
     
     e.dataTransfer.effectAllowed = 'all';
-    e.dataTransfer.setData("text/html", e.target.outerHTML);
-    e.target.style.opacity = '0.4';
+    dnd.data = e.target.outerHTML;
     
+    // Set dragElement
     dnd.dragElement = e.target;
+    dnd.dragElement.style.opacity = '0.4';
 }
 
 // Function to handle dragenter
 function handleDragEnter(e) {
     e.preventDefault();
     
-    // Check if entered element contains drag area text, hide it if it does
+    // Add dragover class to e.target
+    e.target.classList.add("dragover");
+    
+    // Check if entered element contains drag area text
     var element = e.target.querySelector('.itemDragAreaText');
     if (!element) {return false} // Return if element is null
+    
+    // Check if drag area text is in e.target's node, hide it if so
     if (element.parentNode === e.target)
         element.style.visibility = "hidden";
-        
-    e.target.classList.add("dragover");
     
 }
 
-// Function ot handle dragover
+// Function to handle dragover
 function handleDragOver(e) {
     e.preventDefault(); // Necessary to allow drop
 }
 
 // Function to handle dragleave
 function handleDragLeave(e) {
+    // Remove dragover class from e.target
+    e.target.classList.remove("dragover");
+    
+    // Check if entered element contains drag area text
     var element = e.target.querySelector('.itemDragAreaText');
     if (!element) {return false} // Return if element is null
+    
+    // Check if drag area text is in e.target's node, hide it if so
     if (element.parentNode === e.target)
         element.style.visibility = "visible";
-        
-    e.target.classList.remove("dragover");
     
 }
 
-// Function to handle drag drop event
+// Function to handle drop event
 function handleDrop(e) {
     e.preventDefault();
     
@@ -69,10 +77,8 @@ function handleDrop(e) {
     
     // Create new node to be dropped, modify styles
     var new_node = document.createElement('div');
-    new_node.innerHTML = e.dataTransfer.getData('text/html');
+    new_node.innerHTML = dnd.data;
     new_node.classList.add("panel", "panel-default", "dropped");
-    new_node.addEventListener('dragstart', handleDragStart, false);
-    new_node.addEventListener('dragend', handleDragEnd, false);
     
     if (dnd.action === 'copy') {
         
@@ -80,6 +86,7 @@ function handleDrop(e) {
         new_node_inner.classList.add("panel-body");
         new_node_inner.classList.remove("xitem", "stockitem");
         new_node_inner.addEventListener('dragend', handleDragEnd, false);
+        new_node_inner.addEventListener('dragstart', handleDragStart, false);
         
         var drop_text = e.target.querySelector('.itemDragAreaText');
         // If there is drop text, replace it with the dragged node
@@ -91,7 +98,9 @@ function handleDrop(e) {
         
     } else if (dnd.action === "move") {
         dnd.dragElement.parentNode.parentNode.removeChild(dnd.dragElement.parentNode);
-        dnd.dropElement = e.target.appendChild(new_node);
+        console.log(dnd.dragElement.parentNode.parentNode);
+        dnd.dropElement = new_node
+        e.target.appendChild(dnd.dropElement);
     }
     
 }
@@ -106,19 +115,17 @@ function handleDragEnd(e) {
 }
 
 // Add listeners to draggable items
-var items = document.querySelectorAll(".xitem, .mitem");
-[].forEach.call(items, function(item) {
-    item.addEventListener('dragstart', handleDragStart, false);
-    item.addEventListener('dragend', handleDragEnd, false);
+$(".xitem, .mitem").on({
+    'dragstart': handleDragStart,
+    'dragend': handleDragEnd
 });
 
 // Add listeners to drop areas
-items = document.querySelectorAll(".entry .itemDragArea");
-[].forEach.call(items, function(item) {
-    item.addEventListener('dragenter', handleDragEnter, false);
-    item.addEventListener('dragover', handleDragOver, false);
-    item.addEventListener('dragleave', handleDragLeave, false);
-    item.addEventListener('drop', handleDrop, false);
+$(".entry .itemDragArea").on({
+    'dragenter': handleDragEnter,
+    'dragover': handleDragOver,
+    'dragleave': handleDragLeave,
+    'drop': handleDrop
 });
 
 // Adds drop zone at first and last element position inside of node
