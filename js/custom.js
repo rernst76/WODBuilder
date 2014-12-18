@@ -58,7 +58,7 @@ function handleDragOver(e) {
 // Function to handle dragleave
 function handleDragLeave(e) {
     if($(this).hasClass("itemDragArea")) {
-        logEvent(e);
+        //logEvent(e);
         
         // Remove dragover class
         $(this).removeClass("dragover");
@@ -81,6 +81,12 @@ function handleDrop(e) {
     
     // Remove drag over styling
     $(this).removeClass("dragover");
+    
+    // Make sure drop target is not a child of drag element, return if it is
+    if($.contains(dnd.dragElement, e.target)) {
+        $(this).trigger("dragleave"); // Manually trigger dragleave to fix text
+        return false;
+    }
     
     // Create new node to be dropped, modify styles
     var new_node = document.createElement('div');
@@ -107,7 +113,8 @@ function handleDrop(e) {
     if (dnd.action === "move") {
         // Pre-emptively replace drag-text if needed, make sure it needs it
         var isPermArea = $(dnd.dragElement).parent().parent().hasClass('permArea');
-        if($(dnd.dragElement).parent().children().length <= 1 && !isPermArea) {
+        var numChildren = $(dnd.dragElement).parent().parent().children().length;
+        if(numChildren <= 1 && !isPermArea) {
             $(dnd.dragElement).parent().parent().append('<p class="itemDragAreaText">Drop items here</p>');
         }
         
@@ -116,7 +123,7 @@ function handleDrop(e) {
         
     }
     
-    // Check if left element contains drag area text, replace it if so
+    // Check if element contains drag area text, replace it if so
     var dropText = $(this).children(".itemDragAreaText");
     if (dropText.length) { // Check jquery object length
         e.target.replaceChild(new_node, dropText[0]);
