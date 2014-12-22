@@ -32,13 +32,14 @@ function handleDragStart(e) {
 
 // Function to handle dragenter
 function handleDragEnter(e) {
-    if($(this).hasClass("itemDragArea")) {
+    if($(this).hasClass("itemDragArea") || $(this).hasClass("glyphicon-trash")){
         e.preventDefault();
         e.stopPropagation();
         logEvent(e);
         
         // Add dragover class to e.target
-        $(this).addClass("dragover");
+        if($(this).hasClass("glyphicon-trash"))
+            $(this).addClass("dragover");
         
         // Check if entered element contains drag area text, hide it
         var dragAreaText = $(this).children(".itemDragAreaText");
@@ -50,18 +51,20 @@ function handleDragEnter(e) {
 
 // Function to handle dragover
 function handleDragOver(e) {
-    if($(e.target).hasClass("itemDragArea"))
+    if($(this).hasClass("itemDragArea") || $(this).hasClass("glyphicon-trash")) {
         e.preventDefault();
-    e.stopPropagation();
+        e.stopPropagation();
+    }
 }
 
 // Function to handle dragleave
 function handleDragLeave(e) {
-    if($(this).hasClass("itemDragArea")) {
+    if($(this).hasClass("itemDragArea") || $(this).hasClass("glyphicon-trash")) {
         //logEvent(e);
         
         // Remove dragover class
-        $(this).removeClass("dragover");
+        if($(this).hasClass("glyphicon-trash"))
+            $(this).removeClass("dragover");
         
         // Check if element contains drag area text, show it
         var dragAreaText = $(this).children(".itemDragAreaText");
@@ -114,7 +117,7 @@ function handleDrop(e) {
         // Pre-emptively replace drag-text if needed, make sure it needs it
         var isPermArea = $(dnd.dragElement).parent().parent().hasClass('permArea');
         var numChildren = $(dnd.dragElement).parent().parent().children().length;
-        if(numChildren <= 1 && !isPermArea) {
+        if(numChildren <= 1) {
             $(dnd.dragElement).parent().parent().append('<p class="itemDragAreaText">Drop items here</p>');
         }
         
@@ -128,7 +131,8 @@ function handleDrop(e) {
     if (dropText.length) { // Check jquery object length
         e.target.replaceChild(new_node, dropText[0]);
     } else {
-        e.target.appendChild(new_node);
+        if($(this).attr('id') != 'trashBin')
+            e.target.appendChild(new_node);
     }
     
     // Set drop element and remove opacity
@@ -149,12 +153,13 @@ $(".xitem, .mitem").on({
 });
 
 // Add listeners to drop areas
-$(".entry .itemDragArea").on({
+$(".entry .itemDragArea, #trashBin").on({
     'dragenter': handleDragEnter,
     'dragover': handleDragOver,
     'dragleave': handleDragLeave,
     'drop': handleDrop
 });
+
 
 // Adds drop zone at first and last element position inside of node
 function insertDropZones(node) {
