@@ -38,6 +38,9 @@ html {
   text-align: center;
   margin-top: 3px;
 }
+.stockitem.xitem .btn-group-vertical {
+  float: right;
+}
 .xitem {
   display: inline-block;
   padding: 8px;
@@ -49,9 +52,40 @@ html {
 .xitem h4 {
   text-align: center;
   margin: 0px 3px 3px 3px;
+  display: inline-block;
+}
+.xitem.panel-body {
+  display: block;
+  border: none;
+}
+.xitem.panel-body .btn-group-vertical {
+  float: right;
 }
 .mitem {
   cursor: move;
+}
+.mitem p {
+  display: inline-block;
+  margin: 0px;
+  text-align: left;
+  vertical-align: middle;
+}
+.mitem.panel-body {
+  padding: 7px;
+}
+.mitem.panel-body .btn-group-vertical {
+  float: none;
+}
+.dropped {
+  margin-bottom: 0px;
+  cursor: move;
+}
+.dropped h4,
+.dropped p {
+  display: inline-block;
+}
+.dropped p {
+  margin-left: 3px;
 }
 .item-title {
   margin-top: 4px;
@@ -66,15 +100,10 @@ html {
   -o-transition: padding 0.2s ease-in-out;
   transition: padding 0.2s ease-in-out;
 }
-.itemDragArea.dragover {
-  border-style: dashed;
+.itemDragArea.dragover border-style dashed {
   border-color: #000;
   padding-top: 20px;
   padding-bottom: 20px;
-}
-.dropped {
-  margin-bottom: 0px;
-  cursor: move;
 }
 .panel-group {
   margin: 0px;

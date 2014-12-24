@@ -45,6 +45,11 @@ html
 .stock h1, .entry h1
     text-align center
     margin-top 3px
+    
+.stockitem
+    &.xitem
+        & .btn-group-vertical
+            float right
 
 .xitem 
     display inline-block
@@ -53,16 +58,35 @@ html
     border 2px solid black
     border-radius 8px
     cursor move
-
-
-.xitem h4 
-    text-align center
-    margin 0px 3px 3px 3px
-
+    & h4
+        text-align center
+        margin 0px 3px 3px 3px
+        display inline-block
+    &.panel-body
+        display block
+        border none
+        & .btn-group-vertical
+            float right
 
 .mitem
     cursor move
+    & p
+        display inline-block
+        margin 0px
+        text-align left
+        vertical-align middle
+    &.panel-body
+        padding 7px
+        & .btn-group-vertical
+            float none
 
+.dropped
+    margin-bottom 0px
+    cursor move
+    & h4, p
+        display inline-block
+    & p
+        margin-left 3px
 
 .item-title 
     margin-top 4px
@@ -72,17 +96,11 @@ html
     padding 10px
     margin-bottom 2px
     transition padding 0.2s ease-in-out
-
-
-.itemDragArea.dragover 
-    border-style dashed
-    border-color black
-    padding-top 20px
-    padding-bottom 20px
+    &.dragover
+       border-style dashed
+        border-color black
+        padding-top 20px
+        padding-bottom 20px 
     
-.dropped
-    margin-bottom 0px
-    cursor move
-
 .panel-group 
     margin 0px

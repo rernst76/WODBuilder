@@ -21,6 +21,7 @@ function handleDragStart(e) {
     
     //Set action based on stockitem class
     dnd.action  = (e.target.classList.contains("stockitem")) ? "copy" : "move";
+    console.log(dnd.action);
     
     e.originalEvent.dataTransfer.effectAllowed = 'all';
     dnd.data = e.target.outerHTML;
@@ -32,17 +33,17 @@ function handleDragStart(e) {
 
 // Function to handle dragenter
 function handleDragEnter(e) {
-    if($(this).hasClass("itemDragArea") || $(this).hasClass("glyphicon-trash")){
-        e.preventDefault();
+    if($(e.target).hasClass("itemDragArea") || $(e.target).hasClass("glyphicon-trash")){
         e.stopPropagation();
+        e.preventDefault();
         logEvent(e);
         
         // Add dragover class to e.target
-        if($(this).hasClass("glyphicon-trash"))
-            $(this).addClass("dragover");
+        if($(e.target).hasClass("glyphicon-trash"))
+            $(e.target).addClass("dragover");
         
         // Check if entered element contains drag area text, hide it
-        var dragAreaText = $(this).children(".itemDragAreaText");
+        var dragAreaText = $(e.target).children(".itemDragAreaText");
         if (dragAreaText) {
             dragAreaText.css("visibility", "hidden");
         }
@@ -51,7 +52,7 @@ function handleDragEnter(e) {
 
 // Function to handle dragover
 function handleDragOver(e) {
-    if($(this).hasClass("itemDragArea") || $(this).hasClass("glyphicon-trash")) {
+    if($(e.target).hasClass("itemDragArea") || $(e.target).hasClass("glyphicon-trash")) {
         e.preventDefault();
         e.stopPropagation();
     }
@@ -59,15 +60,15 @@ function handleDragOver(e) {
 
 // Function to handle dragleave
 function handleDragLeave(e) {
-    if($(this).hasClass("itemDragArea") || $(this).hasClass("glyphicon-trash")) {
+    if($(e.target).hasClass("itemDragArea") || $(e.target).hasClass("glyphicon-trash")) {
         //logEvent(e);
         
         // Remove dragover class
-        if($(this).hasClass("glyphicon-trash"))
-            $(this).removeClass("dragover");
+        if($(e.target).hasClass("glyphicon-trash"))
+            $(e.target).removeClass("dragover");
         
         // Check if element contains drag area text, show it
-        var dragAreaText = $(this).children(".itemDragAreaText");
+        var dragAreaText = $(e.target).children(".itemDragAreaText");
         if (dragAreaText) {
             dragAreaText.css("visibility", "visible");
         }
@@ -78,6 +79,7 @@ function handleDragLeave(e) {
 function handleDrop(e) {
     logEvent(e);
     e.preventDefault();
+    console.log(dnd.action);
     
     // Don't let this bubble, or we will have problems with nesting
     e.stopPropagation();
@@ -94,16 +96,26 @@ function handleDrop(e) {
     // Create new node to be dropped, modify styles
     var new_node = document.createElement('div');
     new_node.innerHTML = dnd.data;
+    var new_node_inner = new_node.firstChild;
+    if ($(new_node).children().hasClass("mitem")) {
+        $(new_node_inner).children().unwrap();
+        $(new_node).children().wrapAll('<div class="mitem panel-body" draggable="true"></div>')
+          .parent()
+          .on({
+            'dragstart': handleDragStart,
+            'dragend': handleDragEnd
+        });
+    } else {
+        $(new_node_inner).addClass("panel-body")
+          .removeClass("stockitem")
+          .on({
+            'dragstart': handleDragStart,
+            'dragend': handleDragEnd
+        });
+    }
     $(new_node).addClass("panel panel-default dropped");
     
-    // Modify classes for inner node, add listeners for dragstart and dragend
-    var new_node_inner = new_node.firstChild;
-    $(new_node_inner).addClass("panel-body")
-      .removeClass("xitem stockitem")
-      .on({
-          'dragstart': handleDragStart,
-          'dragend': handleDragEnd
-    });
+   
       
     // Add listeners for drop areas
     $(new_node_inner).children(".itemDragArea").on({
