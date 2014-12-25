@@ -164,7 +164,7 @@
 											<h4>Sub-Workout</h4>
 											<div class="form-group">
 												<label for="partName">Part Name</label>
-												<input type="text" class="form-control" id="patName" placeholder="ex: Part A">
+												<input type="text" class="form-control" id="partName" placeholder="ex: Part A">
 											</div>
 											<div class="well itemDragArea">
 												<p class="itemDragAreaText">Drop items here</p>
@@ -201,7 +201,7 @@
 										<ul id="movementList" class="list-group">
 											<li class="list-group-item stockitem mitem" draggable="true">
 												<div class="row">
-													<div class="col-md-6">
+													<div class="col-md-4">
 														<div class="btn-group-vertical btn-group-xs" role="group">
 															<button type="button" class="btn btn-default moveUp">
 																<span class="glyphicon glyphicon-chevron-up" style="padding-left: 2px" aria-hidden="true"></span>
@@ -212,13 +212,19 @@
 														</div>
 														<p>Back Squat</p>
 													</div>
-													<div class="col-md-6">
+													<div class="col-md-8">
 														<div class="form-inline">
 															<div class="form-group">
-																<input type="reps" class="form-control" id="reps" placeholder="Reps">
+																<div class="input-group">
+																	<span class="input-group-addon">Reps</span>
+																	<input type="reps" class="form-control" id="reps">
+																</div>
 															</div>
 															<div class="form-group">
-																<input type="weight" class="form-control" id="weight" placeholder="Weight">
+																<div class="input-group">
+																	<span class="input-group-addon">Weight</span>
+																	<input type="weight" class="form-control" id="weight">
+																</div>
 															</div>
 														</div>
 													</div>
