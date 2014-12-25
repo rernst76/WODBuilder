@@ -76,6 +76,9 @@ html {
 .mitem.panel-body .btn-group-vertical {
   float: none;
 }
+.mitem .form-control {
+  width: 55px;
+}
 .dropped {
   margin-bottom: 0px;
   cursor: move;
