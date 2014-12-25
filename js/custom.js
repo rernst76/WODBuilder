@@ -172,17 +172,6 @@ $(".entry .itemDragArea, #trashBin").on({
     'drop': handleDrop
 });
 
-
-// Adds drop zone at first and last element position inside of node
-function insertDropZones(node) {
-    
-}
-
-// Removes drop zone at first and last element position inside of node
-function removeDropZones(node) {
-    
-}
-
 function logEvent(e) {
     console.log(e.type);
     console.log(e.originalEvent.target);
