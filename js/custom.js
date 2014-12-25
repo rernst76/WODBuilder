@@ -115,6 +115,9 @@ function handleDrop(e) {
     }
     $(new_node).addClass("panel panel-default dropped");
     
+    // Add listeners for rearrangement buttons
+    $(new_node).find(".moveUp").click(moveUp);
+    $(new_node).find(".moveDown").click(moveDown);
    
       
     // Add listeners for drop areas
@@ -172,7 +175,30 @@ $(".entry .itemDragArea, #trashBin").on({
     'drop': handleDrop
 });
 
+
 function logEvent(e) {
     console.log(e.type);
     console.log(e.originalEvent.target);
+}
+
+// Move element up in build area
+function moveUp(e) {
+    //get 3rd ancestor
+    var prev = $(e.target).parents().eq(3).prev();
+    if (prev.length > 0) // Only swap if there is something from prev()
+        $(e.target).parents().eq(3).after(prev);
+        
+    // Remove button focus
+    $(this).blur();
+}
+
+// Move element down in build area
+function moveDown(e) {
+    //get 3rd ancestor
+    var next = $(e.target).parents().eq(3).next();
+    if (next.length > 0) // Only swap if there is something from next()
+        $(e.target).parents().eq(3).before(next);
+        
+    // Remove button focus
+    $(this).blur();
 }
