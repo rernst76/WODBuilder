@@ -38,10 +38,6 @@ function handleDragEnter(e) {
         e.preventDefault();
         logEvent(e);
         
-        // Add dragover class to e.target
-        if($(e.target).hasClass("glyphicon-trash"))
-            $(e.target).addClass("dragover");
-        
         // Check if entered element contains drag area text, hide it
         var dragAreaText = $(e.target).children(".itemDragAreaText");
         if (dragAreaText) {
@@ -63,10 +59,6 @@ function handleDragLeave(e) {
     if($(e.target).hasClass("itemDragArea") || $(e.target).hasClass("glyphicon-trash")) {
         //logEvent(e);
         
-        // Remove dragover class
-        if($(e.target).hasClass("glyphicon-trash"))
-            $(e.target).removeClass("dragover");
-        
         // Check if element contains drag area text, show it
         var dragAreaText = $(e.target).children(".itemDragAreaText");
         if (dragAreaText) {
@@ -83,9 +75,6 @@ function handleDrop(e) {
     
     // Don't let this bubble, or we will have problems with nesting
     e.stopPropagation();
-    
-    // Remove drag over styling
-    $(this).removeClass("dragover");
     
     // Make sure drop target is not a child of drag element, return if it is
     if($.contains(dnd.dragElement, e.target)) {
@@ -130,7 +119,6 @@ function handleDrop(e) {
     
     if (dnd.action === "move") {
         // Pre-emptively replace drag-text if needed, make sure it needs it
-        var isPermArea = $(dnd.dragElement).parent().parent().hasClass('permArea');
         var numChildren = $(dnd.dragElement).parent().parent().children().length;
         if(numChildren <= 1) {
             $(dnd.dragElement).parent().parent().append('<p class="itemDragAreaText">Drop items here</p>');
