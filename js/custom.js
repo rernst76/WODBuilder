@@ -183,10 +183,12 @@ function logEvent(e) {
 
 // Move element up in build area
 function moveUp(e) {
-    //get 3rd ancestor
-    var prev = $(e.target).parents().eq(3).prev();
+    // Get reference to this panel, one we are moving
+    var thisPanel = $(e.target).parents(".panel.panel-default.dropped").first();
+    // Get reference to prev panel, one we are swapping with
+    var prev = thisPanel.prev();
     if (prev.length > 0) // Only swap if there is something from prev()
-        $(e.target).parents().eq(3).after(prev);
+        thisPanel.after(prev);
         
     // Remove button focus
     $(this).blur();
@@ -194,10 +196,12 @@ function moveUp(e) {
 
 // Move element down in build area
 function moveDown(e) {
-    //get 3rd ancestor
-    var next = $(e.target).parents().eq(3).next();
+    // Get reference to this panel, one we are moving
+    var thisPanel = $(e.target).parents(".panel.panel-default.dropped").first();
+    // Get reference to next panel, one we are swapping with
+    var next = thisPanel.next();
     if (next.length > 0) // Only swap if there is something from next()
-        $(e.target).parents().eq(3).before(next);
+        thisPanel.before(next);
         
     // Remove button focus
     $(this).blur();
