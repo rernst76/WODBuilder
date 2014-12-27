@@ -97,16 +97,6 @@ html {
   text-align: left;
   padding: 10px;
   margin-bottom: 2px;
-  -webkit-transition: padding 0.2s ease-in-out;
-  -moz-transition: padding 0.2s ease-in-out;
-  -ms-transition: padding 0.2s ease-in-out;
-  -o-transition: padding 0.2s ease-in-out;
-  transition: padding 0.2s ease-in-out;
-}
-.itemDragArea.dragover border-style dashed {
-  border-color: #000;
-  padding-top: 20px;
-  padding-bottom: 20px;
 }
 .panel-group {
   margin: 0px;
